@@ -45,8 +45,7 @@ class Lesson(models.Model):
         **NULLABLE,
         help_text="Загрузите превью"
     )
-    video_link = models.CharField(
-        max_length=150,
+    video_link = models.URLField(
         **NULLABLE,
         verbose_name="Ссылка на видео",
         help_text="Укажите ссылку на видео"
