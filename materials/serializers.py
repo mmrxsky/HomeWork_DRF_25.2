@@ -10,7 +10,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    lesson = LessonSerializer(many=True, read_only=True)
+    lessons = LessonSerializer(source='lesson_count', many=True, read_only=True)
 
     class Meta:
         model = Course
@@ -19,7 +19,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     lesson_count = serializers.SerializerMethodField()
-    lessons = LessonSerializer(many=True, read_only=True)
+    lessons = LessonSerializer(source='lesson_count', many=True, read_only=True)
 
     def get_lesson_count(self, course):
         return Lesson.objects.filter(course=course).count()
