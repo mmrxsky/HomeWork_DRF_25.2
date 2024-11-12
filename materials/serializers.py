@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
 from materials.validators import VideoValidator
 
 
@@ -27,4 +27,10 @@ class CourseDetailSerializer(serializers.ModelSerializer):
         return Lesson.objects.filter(course=course).count()
     class Meta:
         model = Course
-        fields = ('lessons', 'title', 'description', 'lesson_count', 'image', 'owner')
+        fields = ('lessons', 'title', 'description', 'lesson_count', 'image', 'owner',)
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = ('sign_up',)
