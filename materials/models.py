@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {"blank": True, "null": True}
@@ -26,11 +27,16 @@ class Course(models.Model):
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
 
+    owner = models.ForeignKey(
+            settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE
+    )
+
 
 class Lesson(models.Model):
     """
     Класс для описания модели уроков
     """
+
     title = models.CharField(
         max_length=100,
         verbose_name="Название урока",
@@ -46,12 +52,16 @@ class Lesson(models.Model):
         help_text="Загрузите превью"
     )
     video_link = models.URLField(
-        **NULLABLE,
-        verbose_name="Ссылка на видео",
-        help_text="Укажите ссылку на видео"
+        **NULLABLE, verbose_name="Ссылка на видео", help_text="Укажите ссылку на видео"
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, verbose_name="Курс", related_name="lesson_count"
+        Course,
+        on_delete=models.CASCADE,
+        verbose_name="Курс",
+        related_name="lesson_count",
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE
     )
 
     class Meta:
