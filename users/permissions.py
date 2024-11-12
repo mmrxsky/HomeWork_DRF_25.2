@@ -9,8 +9,8 @@ class IsModerator(BasePermission):
 
 class IsOwner(BasePermission):
 
-    def has_object_permission(self, request, view):
-        if request.user.is_staff:
+    def has_object_permission(self, request, view, obj):
+        if obj.owner == request.user:
             return True
 
-        return request.user == view.get_object().owner
+        return False
