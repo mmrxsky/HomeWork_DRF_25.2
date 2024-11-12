@@ -25,4 +25,4 @@ class CourseDetailSerializer(serializers.ModelSerializer):
         return Lesson.objects.filter(course=course).count()
     class Meta:
         model = Course
-        fields = ('lessons', 'title', 'description', 'lesson_count', 'image')
+        fields = ('lessons', 'title', 'description', 'lesson_count', 'image', 'owner')
