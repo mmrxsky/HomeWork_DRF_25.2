@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
 from materials.models import Course, Lesson
+from materials.validators import VideoValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
+        validators = [VideoValidator(field='video_link')]
         model = Lesson
         fields = '__all__'
 
