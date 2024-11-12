@@ -78,7 +78,7 @@ class Subscription(models.Model):
         verbose_name="Пользователь",
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс"
+        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс", related_name="subscription_course"
     )
     sign_up = models.BooleanField(default=False, verbose_name="Подписка")
 
