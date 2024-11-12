@@ -40,6 +40,7 @@ class Payment(models.Model):
     """
     Модель оплаты, связанная с пользователем и курсом/уроком.
     """
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -62,9 +63,7 @@ class Payment(models.Model):
         **NULLABLE,
     )
     payment_sum = models.PositiveIntegerField(verbose_name="Сумма оплаты", **NULLABLE)
-    payment_method = models.CharField(
-        max_length=50, verbose_name="Способ оплаты"
-    )
+    payment_method = models.CharField(max_length=50, verbose_name="Способ оплаты")
 
     class Meta:
         verbose_name = "Оплата"

@@ -10,6 +10,7 @@ class Course(models.Model):
     """
     Класс для описания модели курсов
     """
+
     title = models.CharField(
         max_length=100,
         verbose_name="Название курса",
@@ -30,7 +31,7 @@ class Course(models.Model):
         verbose_name_plural = "Курсы"
 
     owner = models.ForeignKey(
-            settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE
     )
 
 
@@ -70,6 +71,7 @@ class Lesson(models.Model):
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
 
+
 class Subscription(models.Model):
     user = models.ForeignKey(
         AUTH_USER_MODEL,
@@ -78,7 +80,11 @@ class Subscription(models.Model):
         verbose_name="Пользователь",
     )
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, **NULLABLE, verbose_name="Курс", related_name="subscription_course"
+        Course,
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        verbose_name="Курс",
+        related_name="subscription_course",
     )
     sign_up = models.BooleanField(default=False, verbose_name="Подписка")
 
