@@ -18,6 +18,7 @@ from materials.serializers import (
     CourseDetailSerializer,
     SubscriptionSerializer,
 )
+from materials.tasks import mail_update_course_info
 from users.permissions import IsModerator, IsOwner
 
 
@@ -42,6 +43,11 @@ class CourseViewSet(ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        updated_course = serializer.save()
+        mail_update_course_info.delay(updated_course)
+        updated_course.save()
 
     def get_permissions(self):
         if self.action == "create":
